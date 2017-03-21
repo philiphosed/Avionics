@@ -18,7 +18,7 @@ import datetime
 #Open Log File
 
 # define a timestamp format you like
-FORMAT = '%Y%m%d%H%M%S'
+FORMAT = '%H%M%S'
 path = 'Rocketlog.txt'
 new_path = '%s_%s' % (datetime.now().strftime(FORMAT), path)
 f=open(new_path, 'a')
@@ -141,7 +141,7 @@ while True:
     starttime = time.time()
     try:
         Alt_current = int(altimeter.readline())
-    except Nullreadline:
+    except Null_Alt_current:
         Alt_current = 0
 
 
@@ -178,7 +178,7 @@ while True:
         gyro_yout = 0
     try:
         gyro_zout = int(read_word_2c(0x47))
-    except Null zout:
+    except Null_zout:
         gyro_zout = 0
 
     print "gyro_xout: ", gyro_xout, " scaled: ", (gyro_xout / 131)
@@ -191,12 +191,16 @@ while True:
 
     try:
         accel_xout = int(read_word_2c(0x3b))
-    except:
+    except Nullzout:
         accel_xout = 0
-    try
-    accel_yout = read_word_2c(0x3d)
-    accel_zout = read_word_2c(0x3f)
-
+    try:
+        accel_yout = int(read_word_2c(0x3d))
+    except Nullyout:
+        accel_yout = 0
+    try:
+        accel_zout = read_word_2c(0x3f)
+    except Nullzout:
+        accel_zout = 0
     accel_xout_scaled = accel_xout / 16384.0
     accel_yout_scaled = accel_yout / 16384.0
     accel_zout_scaled = accel_zout / 16384.0
